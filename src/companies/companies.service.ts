@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateCompanyDto } from './dto/create-company.dto';
 import { UpdateCompanyDto } from './dto/update-company.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
+import { NotFoundError } from 'src/errors';
 
 @Injectable()
 export class CompaniesService {
@@ -15,15 +16,39 @@ export class CompaniesService {
     return this.prismaService.companies.findMany();
   }
 
-  findOne(id: number) {
-    return this.prismaService.companies.findUnique({ where: { id } });
+  async findOne(id: number) {
+    try {
+      return this.prismaService.companies.findUniqueOrThrow({ where: { id } });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`company with id ${id} not found`);
+      }
+      throw error;
+    }
   }
 
-  update(id: number, updateCompanyDto: UpdateCompanyDto) {
-    return `This action updates a #${id} company`;
+  async update(id: number, updateCompanyDto: UpdateCompanyDto) {
+    try {
+      return await this.prismaService.companies.update({
+        where: { id },
+        data: updateCompanyDto,
+      });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`company with ID ${id} not found`);
+      }
+      throw error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} company`;
+  async remove(id: number) {
+    try {
+      return await this.prismaService.companies.delete({ where: { id } });
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`company with ID ${id} not found`);
+      }
+      throw error;
+    }
   }
 }

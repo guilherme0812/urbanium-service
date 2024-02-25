@@ -1,13 +1,26 @@
 GET http://localhost:3000/companies
 
 ###
-GET http://localhost:3000/companies/1
+GET http://localhost:3000/companies/40
 
 ###
 POST http://localhost:3000/companies
 Content-Type: application/json
 
 {
- "name": "Imobiliária pria",
+ "name": "Imobiliária praia",
  "description": "Descrição da imobiliária"
 }
+
+###
+PATCH  http://localhost:3000/companies/3
+Content-Type: application/json
+
+{
+  "name": "Imobiliária praia",
+  "description": "Encontramos o imóvel perfeito para sua familia"
+}
+
+###
+
+DELETE   http://localhost:3000/companies/3
