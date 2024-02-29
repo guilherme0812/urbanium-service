@@ -9,16 +9,16 @@ export class CompaniesService {
   constructor(private prismaService: PrismaService) {}
 
   create(createCompanyDto: CreateCompanyDto) {
-    return this.prismaService.companies.create({ data: createCompanyDto });
+    return this.prismaService.company.create({ data: createCompanyDto });
   }
 
   findAll() {
-    return this.prismaService.companies.findMany();
+    return this.prismaService.company.findMany();
   }
 
-  async findOne(id: number) {
+  async findOne(id: string) {
     try {
-      return this.prismaService.companies.findUniqueOrThrow({ where: { id } });
+      return this.prismaService.company.findUniqueOrThrow({ where: { id } });
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundError(`company with id ${id} not found`);
@@ -27,9 +27,9 @@ export class CompaniesService {
     }
   }
 
-  async update(id: number, updateCompanyDto: UpdateCompanyDto) {
+  async update(id: string, updateCompanyDto: UpdateCompanyDto) {
     try {
-      return await this.prismaService.companies.update({
+      return await this.prismaService.company.update({
         where: { id },
         data: updateCompanyDto,
       });
@@ -41,9 +41,9 @@ export class CompaniesService {
     }
   }
 
-  async remove(id: number) {
+  async remove(id: string) {
     try {
-      return await this.prismaService.companies.delete({ where: { id } });
+      return await this.prismaService.company.delete({ where: { id } });
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundError(`company with ID ${id} not found`);

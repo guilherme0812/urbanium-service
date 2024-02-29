@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,8 +7,59 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Companies {
-  id          Int    @id @default(autoincrement())
+model Company {
+  id          String     @id @default(uuid())
   name        String
   description String
+  admins      Admin[]
+  imobies     Immobile[]
+  created_at  DateTime   @default(now())
+  updated_at  DateTime   @default(now())
+
+  @@map("companies")
+}
+
+model Admin {
+  id         Int      @id @default(autoincrement())
+  name       String
+  email      String   @unique
+  created_at DateTime @default(now())
+  updated_at DateTime @default(now())
+
+  Company    Company? @relation(fields: [company_id], references: [id])
+  company_id String?
+
+  @@map("admins")
+}
+
+model Immobile {
+  id                    String       @id @default(uuid())
+  name                  String
+  description           String
+  active                Boolean      @default(true)
+  availability          Availability
+  num_bedrooms          Int          @default(0)
+  num_bathrooms         Int          @default(0)
+  num_air_conditioners  Int          @default(0)
+  num_parking_spaces    Int          @default(0)
+  num_maximum_occupancy Int          @default(0)
+  num_kitchen           Int          @default(0)
+  wifi                  Boolean      @default(false)
+  pool                  Boolean      @default(false)
+  xCoordinate           String?
+  yCoordinate           String?
+  country_id            Int?
+  district_id           Int?
+  city_id               Int?
+
+  Company    Company? @relation(fields: [company_id], references: [id])
+  company_id String?
+
+  @@map("immobilies")
+}
+
+enum Availability {
+  SALE
+  MONTHLY_RENTAL
+  DAILY_RENTAL
 }
