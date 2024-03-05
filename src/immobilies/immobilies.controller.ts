@@ -3,21 +3,21 @@ import {
   Get,
   Post,
   Body,
-  Patch,
   Param,
   Delete,
   Query,
+  Put,
 } from '@nestjs/common';
 import { ImmobiliesService } from './immobilies.service';
-import { CreateImmobilyDto } from './dto/create-immobily.dto';
-import { UpdateImmobilyDto } from './dto/update-immobily.dto';
+import { UpdateImmobileDto } from './dto/update-immobile.dto';
+import { CreateImmobileDto } from './dto/create-immobile.dto';
 
 @Controller('immobilies')
 export class ImmobiliesController {
   constructor(private readonly immobiliesService: ImmobiliesService) {}
 
   @Post()
-  create(@Body() createImmobilyDto: CreateImmobilyDto) {
+  create(@Body() createImmobilyDto: CreateImmobileDto) {
     return this.immobiliesService.create(createImmobilyDto);
   }
 
@@ -28,19 +28,19 @@ export class ImmobiliesController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.immobiliesService.findOne(+id);
+    return this.immobiliesService.findOne(id);
   }
 
-  @Patch(':id')
+  @Put()
   update(
-    @Param('id') id: string,
-    @Body() updateImmobilyDto: UpdateImmobilyDto,
+    @Query('id') id: string,
+    @Body() updateImmobilyDto: UpdateImmobileDto,
   ) {
-    return this.immobiliesService.update(+id, updateImmobilyDto);
+    return this.immobiliesService.update(id, updateImmobilyDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.immobiliesService.remove(+id);
+    return this.immobiliesService.remove(id);
   }
 }

@@ -8,7 +8,7 @@ POST http://localhost:3000/companies
 Content-Type: application/json
 
 {
- "name": "Imobiliária praia",
+ "name": "Imobiliária Bombinhas",
  "description": "Descrição da imobiliária"
 }
 
@@ -30,4 +30,59 @@ DELETE   http://localhost:3000/companies/3
 GET http://localhost:3000/immobilies
 
 ###
-GET http://localhost:3000/immobilies?companyId=huhuhuhu-8h5h5h4h-45hh-5615
+GET http://localhost:3000/immobilies?companyId=faf84646-7e55-4316-9971-0a0cd7a23eb1
+
+###
+GET http://localhost:3000/immobilies
+
+###
+GET http://localhost:3000/immobilies/cdcd711d-80c7-4e15-a62e-ac490a0845e3
+
+###
+POST http://localhost:3000/immobilies
+Content-Type: application/json
+{
+    "name": "Kitnet na praia",
+    "description": "Linda casa com vista para o mar",
+    "active": true,
+    "availability": "DAILY_RENTAL",
+    "num_bedrooms": 1,
+    "num_bathrooms": 1,
+    "num_air_conditioners": 1,
+    "num_parking_spaces": 0,
+    "num_maximum_occupancy": 2,
+    "num_kitchen": 1,
+    "wifi": true,
+    "pool": true,
+    "xCoordinate": "123.456",
+    "yCoordinate": "789.123",
+    "country_id": null,
+    "district_id": null,
+    "city_id": null,
+    "company_id": "cd67cc64-0cbb-4e12-afe7-3ec83a437ce8"
+}
+
+###
+PUT http://localhost:3000/immobilies?id=cdcd711d-80c7-4e15-a62e-ac490a0845e3
+Content-Type: application/json
+
+{
+    "name": "Kitnet na praia para casal",
+    "description": "Linda casa com vista para o mar",
+    "active": true,
+    "availability": "DAILY_RENTAL",
+    "num_bedrooms": 1,
+    "num_bathrooms": 1,
+    "num_air_conditioners": 1,
+    "num_parking_spaces": 0,
+    "num_maximum_occupancy": 2,
+    "num_kitchen": 1,
+    "wifi": true,
+    "pool": true,
+    "xCoordinate": "123.456",
+    "yCoordinate": "789.123",
+    "country_id": null,
+    "district_id": null,
+    "city_id": null,
+    "company_id": "cd67cc64-0cbb-4e12-afe7-3ec83a437ce8"
+}
