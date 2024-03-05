@@ -48,9 +48,11 @@ model Immobile {
   pool                  Boolean      @default(false)
   xCoordinate           String?
   yCoordinate           String?
+  neighborhood          String?
   country_id            Int?
   district_id           Int?
   city_id               Int?
+  price                 Float
 
   Company    Company? @relation(fields: [company_id], references: [id])
   company_id String?
