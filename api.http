@@ -1,14 +1,14 @@
 GET http://localhost:3000/companies
 
 ###
-GET http://localhost:3000/companies/40
+GET http://localhost:3000/companies/
 
 ###
 POST http://localhost:3000/companies
 Content-Type: application/json
 
 {
- "name": "Imobiliária Bombinhas",
+ "name": "Imobiliária Teste",
  "description": "Descrição da imobiliária"
 }
 
@@ -23,17 +23,15 @@ Content-Type: application/json
 
 ###
 
-DELETE   http://localhost:3000/companies/3
+DELETE   http://localhost:3000/companies/d9e5a562-8804-4003-8bf7-a9d65e78c8a8
 
 
 ###
 GET http://localhost:3000/immobilies
 
-###
-GET http://localhost:3000/immobilies?companyId=faf84646-7e55-4316-9971-0a0cd7a23eb1
 
 ###
-GET http://localhost:3000/immobilies
+GET http://localhost:3000/immobilies?company_id=24d001e7-acf4-492a-aba1-9e34eaf5e45e
 
 ###
 GET http://localhost:3000/immobilies/cdcd711d-80c7-4e15-a62e-ac490a0845e3
@@ -41,8 +39,9 @@ GET http://localhost:3000/immobilies/cdcd711d-80c7-4e15-a62e-ac490a0845e3
 ###
 POST http://localhost:3000/immobilies
 Content-Type: application/json
+
 {
-    "name": "Kitnet na praia",
+    "name": "Kitnet para casal",
     "description": "Linda casa com vista para o mar",
     "active": true,
     "availability": "DAILY_RENTAL",
@@ -59,7 +58,9 @@ Content-Type: application/json
     "country_id": null,
     "district_id": null,
     "city_id": null,
-    "company_id": "cd67cc64-0cbb-4e12-afe7-3ec83a437ce8"
+    "price": 100,
+    "neighborhood_id": null,
+    "company_id": "24d001e7-acf4-492a-aba1-9e34eaf5e45e"
 }
 
 ###

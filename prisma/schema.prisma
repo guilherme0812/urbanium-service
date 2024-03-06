@@ -11,6 +11,9 @@ model Company {
   id          String     @id @default(uuid())
   name        String
   description String
+  host        String?
+  phone1      String?
+  phone2      String?
   admins      Admin[]
   imobies     Immobile[]
   created_at  DateTime   @default(now())
@@ -48,11 +51,12 @@ model Immobile {
   pool                  Boolean      @default(false)
   xCoordinate           String?
   yCoordinate           String?
-  neighborhood          String?
   country_id            Int?
   district_id           Int?
   city_id               Int?
-  price                 Float
+  price                 Float        @default(0)
+  neighborhood_id       Int?
+  slug                  String?
 
   Company    Company? @relation(fields: [company_id], references: [id])
   company_id String?

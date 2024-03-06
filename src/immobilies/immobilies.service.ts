@@ -3,6 +3,8 @@ import { UpdateImmobileDto } from './dto/update-immobile.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateImmobileDto } from './dto/create-immobile.dto';
 import { NotFoundError } from 'src/errors';
+import { ListAllQueries } from './dto/ListAllQueries';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class ImmobiliesService {
@@ -33,20 +35,32 @@ export class ImmobiliesService {
     });
   }
 
-  findByCompany(companyId?: string) {
-    return this.prismaService.immobile.findMany({
-      where: { company_id: companyId },
-    });
-  }
-
   async findOne(id: string) {
     try {
       return await this.prismaService.immobile.findUniqueOrThrow({
-        where: { id },
+        where: { id: id },
       });
     } catch (error) {
       if (error.code === 'P2025') {
         throw new NotFoundError(`company with id ${id} not found`);
+      }
+      throw error;
+    }
+  }
+
+  async findAll(queryParams: ListAllQueries) {
+    const { company_id, id } = queryParams;
+    const query: Prisma.ImmobileFindManyArgs = {
+      where: {
+        ...(company_id && { company_id }),
+        ...(id && { id }),
+      },
+    };
+    try {
+      return await this.prismaService.immobile.findMany(query);
+    } catch (error) {
+      if (error.code === 'P2025') {
+        throw new NotFoundError(`not found`);
       }
       throw error;
     }

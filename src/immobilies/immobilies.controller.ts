@@ -11,6 +11,7 @@ import {
 import { ImmobiliesService } from './immobilies.service';
 import { UpdateImmobileDto } from './dto/update-immobile.dto';
 import { CreateImmobileDto } from './dto/create-immobile.dto';
+import { ListAllQueries } from './dto/ListAllQueries';
 
 @Controller('immobilies')
 export class ImmobiliesController {
@@ -22,8 +23,8 @@ export class ImmobiliesController {
   }
 
   @Get()
-  findAll(@Query('companyId') companyId?: string) {
-    return this.immobiliesService.findByCompany(companyId);
+  findAll(@Query() query: ListAllQueries) {
+    return this.immobiliesService.findAll(query);
   }
 
   @Get(':id')
